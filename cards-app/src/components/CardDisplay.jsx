@@ -1,7 +1,20 @@
-const BASE_URL = "https://deckofcardsapi.com/api/deck";
+function CardDisplay({card, label}){
+    return (
+        <div className="card-container">
+            <h3>{label}</h3>
 
-export async function initializeDeck() {
-  const response = await fetch(`${BASE_URL}/new/shuffle/?deck_count=1`);
-  const data = await response.json();
-  return data; // contains deck_id
+            {card ? (
+                <>
+                    <img src={card.image} alt={`${card.value} of ${card.suit}`} />
+                    <p>{card.value} of {card.suit}</p>
+                </>
+            ) : (
+                <div className="placeholder">
+                    <p>No card</p>
+                </div>
+            )}
+        </div>
+    );
 }
+
+export default CardDisplay;
