@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { initializeDeck, drawCard } from './services/deckService'
+
 import CardDisplay from './components/CardDisplay'
 
 import './App.css'
@@ -13,8 +14,13 @@ function App() {
   const [suitMatches, setSuitMatches] = useState(0);
   const [cardsRemaining, setCardsRemaining] = useState(52);
 
+  // Progress indicator variables
   const totalCards = 52;
   const currentCardNumber = totalCards - cardsRemaining + 1;
+
+  // Probability indicator variables (useRef for mutability)
+  const [suitCounts, setSuitCounts] = useState({ hearts: 13, diamonds: 13, spades: 13, clubs: 13 });
+  const [valueCounts, setValueCounts] = useState({ '2': 4, '3': 4, '4': 4, '5': 4, '6': 4, '7': 4, '8': 4, '9': 4, '10': 4, 'J': 4, 'Q': 4, 'K': 4, 'A': 4 });
 
   // const [message, setMessage] = useState('');
 
@@ -67,9 +73,30 @@ function App() {
       //Compare values
       if (newCard.value === currentCard.value) {
         setvalueMatches(prev => prev + 1);
-      } else if (newCard.suit === currentCard.suit) {
+      }
+      // Decrement value count
+      setValueCounts(prevCounts => ({
+        ...prevCounts,
+        [newCard.value]: prevCounts[newCard.value] > 0 ? prevCounts[newCard.value] - 1 : 0
+      }));
+      // Decrement suit count
+      setSuitCounts(prevCounts => ({
+        ...prevCounts,
+        [newCard.suit]: prevCounts[newCard.suit] > 0 ? prevCounts[newCard.suit] - 1 : 0
+      }));
+      if (newCard.suit === currentCard.suit) {
         setSuitMatches(prev => prev + 1);
       }
+    } else {
+      // First card drawn
+      setValueCounts(prevCounts => ({
+        ...prevCounts,
+        [newCard.value]: prevCounts[newCard.value] > 0 ? prevCounts[newCard.value] - 1 : 0
+      }));
+      setSuitCounts(prevCounts => ({
+        ...prevCounts,
+        [newCard.suit]: prevCounts[newCard.suit] > 0 ? prevCounts[newCard.suit] - 1 : 0
+      }));
     }
 
     setCurrentCard(newCard);
@@ -77,6 +104,19 @@ function App() {
 
   function progressIndicatorWidth(cardsRemaining, currentCardNumber) {
     return ((cardsRemaining === 0 ? totalCards : currentCardNumber) / totalCards) * 100;
+  }
+
+  // Probability calculations
+  let valueMatchProb = '';
+  let suitMatchProb = '';
+  if (currentCard && cardsRemaining > 0) {
+    const valueLeft = valueCounts[currentCard.value] || 0;
+    valueMatchProb = ((valueLeft / cardsRemaining) * 100).toFixed(2) + '%';
+    const suitLeft = suitCounts[currentCard.suit] || 0;
+    suitMatchProb = ((suitLeft / cardsRemaining) * 100).toFixed(2) + '%';
+  } else {
+    valueMatchProb = '-';
+    suitMatchProb = '-';
   }
 
   return (
@@ -89,6 +129,11 @@ function App() {
           <div style={{ width: `${progressIndicatorWidth(cardsRemaining, currentCardNumber)}%` }}>
           </div>
         </div>
+      </div>
+
+      <div className='probability-indicator'>
+        <strong>Probability for a value match: {valueMatchProb}</strong>
+        <strong>Probability for a suit match: {suitMatchProb}</strong>
       </div>
 
       <div className='cards-wrapper'>
