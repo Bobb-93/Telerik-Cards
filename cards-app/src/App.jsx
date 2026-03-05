@@ -16,25 +16,25 @@ function App() {
 
   //Initialize deck on load
   useEffect(() => {
-    
+
     async function setupDeck() {
       const data = await initializeDeck();
-        setDeckId(data.deck_id);
+      setDeckId(data.deck_id);
     }
 
     setupDeck();
   }, []);
 
   // Draw card handler
-  const handlerDraw = async () {
-    
-    if(!deckId) return;
+  const handlerDraw = async () => {
+
+    if (!deckId) return;
 
     const data = await drawCard(deckId);
 
     console.log(data);
-    
-    if(data.remaining === 0){
+
+    if (data.remaining === 0) {
       setCardsRemaining(0);
     } else {
       setCardsRemaining(data.remaining);
@@ -43,14 +43,14 @@ function App() {
     const newCard = data.cards[0];
     console.log(newCard);
 
-    if(currentCard){
+    if (currentCard) {
       setPreviousCard(currentCard);
 
       //Compare values
-      if(newCard.value === currentCard.value){
+      if (newCard.value === currentCard.value) {
         setvalueMatches(prev => prev + 1);
         setMessage('SNAP VALUE!');
-      } else if(newCard.suit === currentCard.suit){
+      } else if (newCard.suit === currentCard.suit) {
         setSuitMatches(prev => prev + 1);
         setMessage('SNAP SUIT!');
       } else {
@@ -66,11 +66,25 @@ function App() {
       <h1>Deck of Cards</h1>
 
       <div className='cards-wrapper'>
-        <CardDisplay card={previousCard} label = 'Previous Card' />
-        <CardDisplay card={currentCard} label = 'Current Card' />
+        <CardDisplay card={previousCard} label='Previous Card' />
+        <CardDisplay card={currentCard} label='Current Card' />
       </div>
+
+      <h2 className='message'>{message}</h2>
+
+      <div className='counters'>
+        <p>Value matches: {valueMatches}</p>
+        <p>Suit matches: {suitMatches}</p>
+      </div>
+
+      {cardsRemaining > 0 ? (
+        <button onClick={handlerDraw}>Draw card</button>
+      ) : (
+        <h2>Deck Finished!</h2>
+      )
+      }
     </div>
   )
 }
 
-export default App
+export default App;
