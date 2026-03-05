@@ -44,3 +44,27 @@ button{
     color: red;
     height: 30px;
 }
+
+.progress-indicator{
+    margin-bottom: 1rem;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-indicator>div{
+    width: 100%;
+    background: #eee;
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 4px; 
+}
+
+.progress-indicator>div>div{
+    background: #007bff;
+    height: 8px;
+    border-radius: 4px;
+}
