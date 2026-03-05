@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { initializeDeck, drawCard } from './services/deckService'
 import CardDisplay from './components/CardDisplay'
 
@@ -12,7 +12,21 @@ function App() {
   const [valueMatches, setvalueMatches] = useState(0);
   const [suitMatches, setSuitMatches] = useState(0);
   const [cardsRemaining, setCardsRemaining] = useState(52);
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
+
+  const message = useMemo(() => {
+    if(!previousCard || !currentCard) return "";
+
+    if(previousCard.value === currentCard.value){
+      return 'SNAP VALUE!';
+    }
+
+    if(previousCard.suit === currentCard.suit){
+      return 'SNAP SUIT!';
+    }
+
+    return "";
+  }, [previousCard, currentCard]);
 
   //Initialize deck on load
   useEffect(() => {
@@ -26,7 +40,7 @@ function App() {
   }, []);
 
   // Draw card handler
-  const handlerDraw = async () => {
+  const handleDraw = useCallback(async () => {
 
     if (!deckId) return;
 
@@ -49,17 +63,13 @@ function App() {
       //Compare values
       if (newCard.value === currentCard.value) {
         setvalueMatches(prev => prev + 1);
-        setMessage('SNAP VALUE!');
       } else if (newCard.suit === currentCard.suit) {
         setSuitMatches(prev => prev + 1);
-        setMessage('SNAP SUIT!');
-      } else {
-        setMessage('');
       }
     }
 
     setCurrentCard(newCard);
-  };
+  }, [deckId, currentCard]);
 
   return (
     <div className='app'>
@@ -78,7 +88,7 @@ function App() {
       </div>
 
       {cardsRemaining > 0 ? (
-        <button onClick={handlerDraw}>Draw card</button>
+        <button onClick={handleDraw}>Draw card</button>
       ) : (
         <h2>Deck Finished!</h2>
       )
