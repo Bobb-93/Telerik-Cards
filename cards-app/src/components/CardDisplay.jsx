@@ -1,4 +1,4 @@
-function CardDisplay({card, label}){
+function CardDisplay({ card, label }) {
     return (
         <div className="card-container">
             <h3>{label}</h3>

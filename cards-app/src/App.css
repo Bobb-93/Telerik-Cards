@@ -1,17 +1,17 @@
-.app{
+.app {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.cards-wrapper{
+.cards-wrapper {
     display: flex;
     justify-content: center;
     gap: 50px;
     margin: 20px 0;
 }
 
-.card-container{
-    border: 1px solid #ccc;   
+.card-container {
+    border: 1px solid #ccc;
     padding: 15px;
     width: 200px;
     height: 250px;
@@ -22,11 +22,11 @@
     justify-content: center;
 }
 
-.card-container img{
+.card-container img {
     width: 100px;
 }
 
-.placeholder{
+.placeholder {
     height: 150px;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
     color: gray;
 }
 
-button{
+button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -43,12 +43,12 @@ button{
     border: none;
 }
 
-.message{
+.message {
     color: red;
     height: 30px;
 }
 
-.progress-indicator{
+.progress-indicator {
     margin-bottom: 1rem;
     width: 200px;
     margin-left: auto;
@@ -58,15 +58,15 @@ button{
     align-items: center;
 }
 
-.progress-indicator>div{
+.progress-indicator>div {
     width: 100%;
     background: #eee;
     height: 8px;
     border-radius: 4px;
-    margin-top: 4px; 
+    margin-top: 4px;
 }
 
-.progress-indicator>div>div{
+.progress-indicator>div>div {
     background: #007bff;
     height: 8px;
     border-radius: 4px;
