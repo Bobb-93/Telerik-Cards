@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { initializeDeck, drawCard } from './services/deckService'
+import ProressIndicator from './components/ProgressIndicator'
 
 import CardDisplay from './components/CardDisplay'
 
@@ -16,7 +17,6 @@ function App() {
 
   // Progress indicator variables
   const totalCards = 52;
-  const currentCardNumber = totalCards - cardsRemaining + 1;
 
   // Probability indicator variables (useRef for mutability)
   const [suitCounts, setSuitCounts] = useState({ hearts: 13, diamonds: 13, spades: 13, clubs: 13 });
@@ -101,10 +101,6 @@ function App() {
 
     setCurrentCard(newCard);
   }, [deckId, currentCard]);
-
-  function progressIndicatorWidth(cardsRemaining, currentCardNumber) {
-    return ((cardsRemaining === 0 ? totalCards : currentCardNumber) / totalCards) * 100;
-  }
 
   // Probability calculations
   let valueMatchProb = '';
