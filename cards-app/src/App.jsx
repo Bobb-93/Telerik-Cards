@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { initializeDeck, drawCard } from './services/deckService'
+import ProressIndicator from './components/ProgressIndicator'
 import CardDisplay from './components/CardDisplay'
 
 import './App.css'
@@ -14,9 +15,6 @@ function App() {
   const [cardsRemaining, setCardsRemaining] = useState(52);
 
   const totalCards = 52;
-  const currentCardNumber = totalCards - cardsRemaining + 1;
-
-  // const [message, setMessage] = useState('');
 
   const message = useMemo(() => {
     if (!previousCard || !currentCard) return "";
@@ -75,21 +73,14 @@ function App() {
     setCurrentCard(newCard);
   }, [deckId, currentCard]);
 
-  function progressIndicatorWidth(cardsRemaining, currentCardNumber) {
-    return ((cardsRemaining === 0 ? totalCards : currentCardNumber) / totalCards) * 100;
-  }
-
   return (
     <div className='app'>
       <h1>Deck of Cards</h1>
 
-      <div className='progress-indicator'>
-        <strong>Card {cardsRemaining === 0 ? totalCards : currentCardNumber} of {totalCards}</strong>
-        <div>
-          <div style={{ width: `${progressIndicatorWidth(cardsRemaining, currentCardNumber)}%` }}>
-          </div>
-        </div>
-      </div>
+      <ProressIndicator
+        cardsRemaining={cardsRemaining}
+        totalCards={totalCards}
+      />
 
       <div className='cards-wrapper'>
         <CardDisplay card={previousCard} label='Previous Card' />
