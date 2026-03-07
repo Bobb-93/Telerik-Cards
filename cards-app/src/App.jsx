@@ -35,7 +35,7 @@ function App() {
   //Initialize deck on load
   useEffect(() => {
 
-    async function setupDeck() {
+    const setupDeck = async () => {
       const data = await initializeDeck();
       setDeckId(data.deck_id);
     }
