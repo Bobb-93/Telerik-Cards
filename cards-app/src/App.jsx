@@ -48,7 +48,7 @@ function App() {
 
     const data = await drawCard(deckId);
 
-    console.log(data);
+    // console.log(data);
 
     if (data.remaining === 0) {
       setCardsRemaining(0);
@@ -57,7 +57,8 @@ function App() {
     }
 
     const newCard = data.cards[0];
-    console.log(newCard);
+    
+    // console.log(newCard);
 
     if (currentCard) {
       setPreviousCard(currentCard);
@@ -83,8 +84,8 @@ function App() {
       />
 
       <div className='cards-wrapper'>
-        <CardDisplay card={previousCard} label='Previous Card' />
-        <CardDisplay card={currentCard} label='Current Card' />
+        <CardDisplay key={previousCard?.code} card={previousCard} label='Previous Card' shouldFlip={false} />
+        <CardDisplay key={currentCard?.code} card={currentCard} label='Current Card' shouldFlip={true} />
       </div>
 
       <h2 className='message'>{message}</h2>
