@@ -5,6 +5,7 @@
 
 .cards-wrapper {
     display: flex;
+    align-items: flex-start;
     justify-content: center;
     gap: 50px;
     margin: 20px 0;
