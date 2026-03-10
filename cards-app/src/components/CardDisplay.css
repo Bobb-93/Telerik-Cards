@@ -30,3 +30,7 @@
   background: #ddd;
   border-radius: 6px;
 }
+
+.card-title{
+  white-space: nowrap;
+}

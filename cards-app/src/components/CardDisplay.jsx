@@ -27,7 +27,7 @@ function CardDisplay({ card, label, shouldFlip }) {
                     {card && (
                         <>
                             <img src={card.image} alt={`${card.value} of ${card.suit}`} />
-                            <p>{card.value} of {card.suit}</p>
+                            <p className='card-title'>{card.value} of {card.suit}</p>
                         </>
                     )}
                 </div>
