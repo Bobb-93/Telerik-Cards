@@ -1,4 +1,4 @@
-const BASE_URL = "https://deckofcardsapi.com/api/deck";
+import { BASE_URL } from "../constants";
 
 // Initialize and shuffle deck
 export async function initializeDeck() {

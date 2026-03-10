@@ -2,10 +2,6 @@ function ProressIndicator({ cardsRemaining, totalCards }) {
 
     const currentCardNumber = totalCards - cardsRemaining;
 
-    console.log(`cardsRemaining : ${cardsRemaining}`);
-    console.log(`totalCards: ${totalCards}`);
-    console.log(`currentCardNumber: ${currentCardNumber}`)
-
     const progressIndicatorWidth = (currentCardNumber / totalCards) * 100;
 
     return (

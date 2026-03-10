@@ -4,6 +4,7 @@ import ProressIndicator from './components/ProgressIndicator'
 import CardDisplay from './components/CardDisplay'
 
 import './App.css'
+import { totalCards } from './constants'
 
 function App() {
 
@@ -13,8 +14,6 @@ function App() {
   const [valueMatches, setvalueMatches] = useState(0);
   const [suitMatches, setSuitMatches] = useState(0);
   const [cardsRemaining, setCardsRemaining] = useState(52);
-
-  const totalCards = 52;
 
   const message = useMemo(() => {
     if (!previousCard || !currentCard) return "";
@@ -34,7 +33,7 @@ function App() {
   useEffect(() => {
 
     const setupDeck = async () => {
-      const data = await initializeDeck();
+      const data = await initializeDeck();//error handling
       setDeckId(data.deck_id);
     }
 
@@ -47,8 +46,6 @@ function App() {
     if (!deckId) return;
 
     const data = await drawCard(deckId);
-
-    // console.log(data);
 
     if (data.remaining === 0) {
       setCardsRemaining(0);
@@ -85,8 +82,8 @@ function App() {
 
       <div className='cards-wrapper'>
         <CardDisplay key={previousCard?.code} card={previousCard} label='Previous Card' shouldFlip={false} />
-        <CardDisplay key={currentCard?.code} card={currentCard} label='Current Card' shouldFlip={true} />
-      </div>
+        <CardDisplay key={currentCard?.code} card={currentCard} label='Current Card' shouldFlip={true} /> {/* без key**/}
+      </div> 
 
       <h2 className='message'>{message}</h2>
 
