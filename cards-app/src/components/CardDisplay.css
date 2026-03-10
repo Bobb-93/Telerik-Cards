@@ -1,6 +1,6 @@
 .card {
   width: 120px;
-  height: 170px;
+  height: 168px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s;
@@ -27,10 +27,14 @@
 }
 
 .card-back {
-  background: #ddd;
+  background-image: url('https://deckofcardsapi.com/static/img/back.png');
+  background-size: cover;
+  background-position: center;
   border-radius: 6px;
 }
 
-.card-title{
+.card-title {
+  height: 1.5rem;
   white-space: nowrap;
+  text-align: center;
 }
