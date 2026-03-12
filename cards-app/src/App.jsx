@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useCallback } from 'react'
 import { initializeDeck, drawCard } from './services/deckService'
 import ProressIndicator from './components/ProgressIndicator'
 import CardDisplay from './components/CardDisplay'
+import Counters from './components/Counters';
 
 import './App.css'
 import { totalCards } from './constants'
@@ -86,10 +87,7 @@ function App() {
 
       <h2 className='message'>{message}</h2>
 
-      <div className='counters'>
-        <p>Value matches: {valueMatches}</p>
-        <p>Suit matches: {suitMatches}</p>
-      </div>
+      <Counters valueMatches={valueMatches} suitMatches={suitMatches} />
 
       {cardsRemaining > 0 ? (
         <button onClick={handleDraw}>Draw card</button>
