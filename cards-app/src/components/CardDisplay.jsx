@@ -16,7 +16,7 @@ function CardDisplay({ card, label, shouldFlip }) {
         <div className="card-container">
             <h3>{label}</h3>
 
-            <div className={`card ${flipped ? 'flipped' : ''}`}>
+            <div className={`card ${flipped ? 'flipped' : ''}`}> 
                 <div className="card-face card-back"></div>
 
                 <div className="card-face card-front">
@@ -26,7 +26,7 @@ function CardDisplay({ card, label, shouldFlip }) {
                 </div>
             </div>
 
-            <p className="card-title">
+            <p className="card-title" data-testid="card-title">
                 {card ? `${card.value} of ${card.suit}` : '\u00A0'}
             </p>
         </div>

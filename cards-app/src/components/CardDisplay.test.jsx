@@ -19,6 +19,7 @@ describe('CardDisplay', () => {
   it('renders blank card title if no card prop', () => {
     render(<CardDisplay label="No Card" />);
     // The card title should be a non-breaking space
-    expect(screen.getByText('\u00A0')).toBeInTheDocument();
+    const cardTitle = screen.getByTestId('card-title');
+    expect(cardTitle.textContent).toBe('\u00A0');
   });
 });
